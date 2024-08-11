@@ -2,64 +2,120 @@
 
 ---
 
-# Flask Tutorial 
+# Flask Web Application Tutorial
 
-- **First, install Flask:**
+This tutorial will guide you through creating a simple web application using Flask.
 
-  ```bash
-  pip install Flask
-  ```
+## Prerequisites
 
-- **Use this code to create a web server:**
+- Python 3.6 or higher
+- pip (Python package installer)
 
-  ```python
-  from flask import Flask
+## Step 1: Install Flask
 
-  app = Flask(__name__)
+First, you need to install Flask. Open your terminal and run:
 
-  @app.route('/')
-  def home_page():
-      return '<h2>Home Page</h2>'
+```bash
+pip install Flask
+```
 
-  if __name__ == '__main__':
-      app.run()
-  ```
+## Step 2: Create Your Flask Application
 
-- **To run the code, you can write in the terminal:**
+Create a new Python file (e.g., `app.py`) and add the following code:
 
-  ```bash
-  export FLASK_APP=app.py
-  export FLASK_ENV=development
-  flask run
-  ```
+```python
+from flask import Flask, render_template
 
-  Replace `app.py` with the name of your Python file if it's different. For Windows, use `set` instead of `export`:
+# Initialize the Flask application
+app = Flask(__name__)
 
-  ```bash
-  $ set FLASK_APP=app.py
-  $ set FLASK_ENV=development
-  $ flask run
-  ```
+# Define the route for the home page
+@app.route('/')
+@app.route('/home')
+def home():
+    # Render the home.html template
+    return render_template('home.html')
+
+# Define the route for the about page
+@app.route('/about')
+def about_page():
+    # Render the route.html template
+    return render_template('route.html')
+
+# Run the application if this file is executed directly
+if __name__ == '__main__':
+    # Enable debug mode for development
+    app.run(debug=True)
+```
+
+## Step 3: Create HTML Templates
+
+Create a `templates` folder in your project directory. Inside this folder, create `home.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <hr>
+    <!-- External link to YouTube -->
+    <a href="https://youtube.com" target="_blank" title="Youtube">
+        Youtube
+    </a>
+    <hr>
+    <!-- Loop through posts (to be passed from the route) -->
+    {% for post in posts %}
+        <h2>By: {{ post.author }}</h2>
+        <h3>File: {{ post.title }}</h3>
+        <p>On: {{ post.date }}</p>
+    {% endfor %}
+</body>
+</html>
+```
+
+Note: You'll need to create a similar `route.html` for the about page.
+
+## Step 4: Run Your Flask Application
+
+To run your application, open your terminal, navigate to your project directory, and run:
+
+```bash
+python app.py
+```
+
+Your application will start, and you can access it at `http://127.0.0.1:5000/`.
+
+## Understanding the Code
+
+### Flask Application (`app.py`)
+
+1. We import necessary modules from Flask.
+2. We create a Flask application instance.
+3. We define routes using the `@app.route()` decorator. Multiple routes can point to the same function.
+4. Our route functions use `render_template()` to display HTML pages.
+5. We use `if __name__ == '__main__':` to ensure the app only runs if the script is executed directly.
+6. `debug=True` enables debug mode, which is helpful during development.
+
+### HTML Template (`home.html`)
+
+1. We create a basic HTML structure.
+2. We use Jinja2 templating (part of Flask) to create a loop with `{% for post in posts %}`.
+3. Inside the loop, we display post information using `{{ }}` syntax.
+
+## Next Steps
+
+1. Create the `route.html` template for the about page.
+2. Pass data to your templates from your route functions.
+3. Add more routes and templates as needed for your application.
+4. Explore Flask's documentation to learn about forms, databases, and more advanced features.
+
+Remember to always run Flask in development mode with debugging disabled when deploying to production.
 
 ---
 
-This will start your Flask development server, and you can access your application at `http://127.0.0.1:5000/`.
-
-- **for better experience you can add Debug option to prevent running the code each time you modify the code**
-```python
-  if __name__ == '__main__':
-      app.run(debug=True)
-```
-Then you write
-```bash
-$ python Project_name.py
-
-$ Flask run
-```
-
-
-
-
-
-
-# Flask-Learning
+T
