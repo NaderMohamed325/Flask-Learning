@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <hr>
+    <a href="https://youtube.com" target="_blank" title="Youtube">
+        Youtube
+    </a>
+    <hr>
+    {% for post in posts %}
+        <h3>By: {{ post.author }}</h3>
+        <h3>File: {{ post.body }}</h3>
+        <h3>On: {{ post.date }}</h3>
+    {% endfor %}
+</body>
+</html>
